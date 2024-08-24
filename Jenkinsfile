@@ -26,4 +26,4 @@ pipeline  {
             sh "sudo docker system prune -af"
          }   
          }   
-}
+
