@@ -45,20 +45,20 @@ pipeline  {
         stage("Create frontend docker image") {
             steps {
                 echo 'Creating frontend docker image ...'
-                sh "cd FrontEnd/my-app && docker build --no-cache -t levchuk19/amazon-clone-frontend   . "                
+                sh "cd FrontEnd/my-app && docker build --no-cache -t alevchuk19/amazon-clone-frontend   . "                
             }
         }
          stage("Create backend docker image") {
             steps {
                 echo 'Creating backend docker image ...'
-                sh " cd Amazon-Clone/BackEnd/Amazon-clone/ && docker build --no-cache -t levchuk19/amazon-clone-backend  . "
+                sh " cd BackEnd/Amazon-clone/ && docker build --no-cache -t alevchuk19/amazon-clone-backend  . "
             }
         }
          stage("docker frontend run") {
              steps {
                  echo " ============== Creating frontend docker container =================="
                  sh '''
-                 docker run -d --restart=always -p 80:80 --name=frontend levchuk19/amazon-clone-frontend
+                 docker run -d --restart=always -p 80:80 --name=frontend alevchuk19/amazon-clone-frontend
                  '''
              }
          }
@@ -66,7 +66,7 @@ pipeline  {
              steps {
                  echo " ============== Creating backend docker container =================="
                  sh '''
-                 docker run -d --restart=always -p 5034:5034 --name=backend levchuk19/amazon-clone-backend
+                 docker run -d --restart=always -p 5034:5034 --name=backend alevchuk19/amazon-clone-backend
                  '''
              }
         }
