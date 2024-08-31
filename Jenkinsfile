@@ -16,13 +16,13 @@ pipeline  {
         stage("Change IP in axios.js")
          {
              steps{
-                sh "find FrontEnd/my-app/ -type f -exec sed  -i 's#http://localhost:5034#https://10.20.34.232/api#g' {} +"
+                sh "find FrontEnd/my-app/ -type f -exec sed  -i 's#http://localhost:5034#https://10.20.34.102/api#g' {} +"
              }
          }
          stage("Change IP in appsettings.json")
          {
              steps{
-                sh "find BackEnd/Amazon-clone/ -type f -exec sed  -i 's#http://localhost:81#https://10.20.34.232/#g' {} +"
+                sh "find BackEnd/Amazon-clone/ -type f -exec sed  -i 's#http://localhost:81#https://10.20.34.102/#g' {} +"
              }
          }
          stage ("Remove all containers and images"){
@@ -36,6 +36,11 @@ pipeline  {
          steps{
             sh "docker system prune -af"
          }   
+        }
+         stage ("Run MSSQL container"){
+            steps{
+                sh 'docker run  --restart=always -v /home/db:/var/opt/mssql -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Qwerty-1" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest'
+            }
         }
     }
 }
